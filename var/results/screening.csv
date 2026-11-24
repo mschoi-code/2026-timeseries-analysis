@@ -1,0 +1,3 @@
+candidate,p,Johansen rank,Granger->marr p,Granger->births p,normal MAPE,vs base,keep?
+youth_emp,5,0,0.6653,0.4674,4.9786,0.8851,False
+mort_rate,12,0,0.8203,0.9974,4.2887,0.1952,False

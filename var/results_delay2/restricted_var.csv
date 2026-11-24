@@ -1,0 +1,4 @@
+model,normal MAPE,rebound MAPE,rebound bias,normal h1-6,normal h7-12,rebound h1-6,rebound h7-12,normal growth (h7-12 / h1-6),rebound growth (h7-12 / h1-6)
+VAR (lags 1~11),5.883,8.198,-7.508,4.753,7.012,5.758,10.638,1.475,1.847
+R9 (lags 9~20),5.73,8.617,-8.035,4.082,7.378,6.11,11.124,1.808,1.821
+R12 (lags 12~23),5.174,10.699,-10.569,3.934,6.413,7.101,14.298,1.63,2.013
