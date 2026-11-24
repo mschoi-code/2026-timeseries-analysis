@@ -1,6 +1,6 @@
 """E9: Japan's 2005->2015 fertility rebound next to Korea's 2023->2025, with the same measures; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/japan_compare.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/japan_compare.py
 Japanese tables: e-Stat vital statistics (final counts), CSV files kept as downloaded in data/raw/japan_estat_20261110/.
 """
 import csv

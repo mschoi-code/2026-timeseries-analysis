@@ -2,7 +2,7 @@
 real-time design of reports/09 (known to o-2, 8 December decisions, blocks of 20 frozen decisions). Report only.
 
 These are notebook versions; teammates' final settings may differ. Rules are in notes/decisions.md.
-Run from births/ after notebook_leak.py: python -I scripts/team_models_realtime.py
+Run from sarimax_etc/ after notebook_leak.py: python -I scripts/team_models_realtime.py
 """
 import sys
 import warnings

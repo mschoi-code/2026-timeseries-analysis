@@ -1,7 +1,7 @@
 """E5: province panel R1 (levels) and R3 (differences) with an age-standardized marriage rate in place of the general rate.
 
 Wife's age-specific rates 15~54 weighted by national women of a fixed year. Report only; rules are in notes/decisions.md.
-Run from births/: python -I scripts/province_standardized.py
+Run from sarimax_etc/: python -I scripts/province_standardized.py
 """
 import sys
 import warnings

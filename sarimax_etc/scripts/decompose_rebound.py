@@ -1,6 +1,6 @@
 """E16: where the 2023->2025 birth rise sits: birth order, marriage duration, non-marital births, divorces; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/decompose_rebound.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/decompose_rebound.py
 """
 import sys
 from pathlib import Path

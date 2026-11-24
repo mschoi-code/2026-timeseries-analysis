@@ -2,7 +2,7 @@
 
 December origins, data known to o-2, marriages after that = same month a year earlier, population as in
 population_variable.frames (vintage proxy before 2023-12). Rules are in notes/decisions.md.
-Run from births/: python -I scripts/long_backtest.py
+Run from sarimax_etc/: python -I scripts/long_backtest.py
 """
 import sys
 import warnings

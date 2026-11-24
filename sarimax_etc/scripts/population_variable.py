@@ -1,6 +1,6 @@
 """Replace the marriage count and women 30~34 with a marriage rate and an age-weighted population; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/population_variable.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/population_variable.py
 """
 import sys
 import warnings

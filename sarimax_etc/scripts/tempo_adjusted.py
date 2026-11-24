@@ -1,7 +1,7 @@
 """E12: Bongaarts-Feeney tempo-adjusted TFR for Korea and Japan, by birth order; report only.
 
 TFR'_i(t) = TFR_i(t) / (1 - r_i(t)), r_i(t) = centred yearly change of the mean age at birth of order i.
-Rules are in notes/decisions.md. Run from births/: python -I scripts/tempo_adjusted.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/tempo_adjusted.py
 """
 import sys
 from pathlib import Path

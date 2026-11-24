@@ -1,6 +1,6 @@
 """Province panel: do a province's marriages lead its fertility once national shocks are removed? Report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/province_panel.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/province_panel.py
 """
 import sys
 import warnings

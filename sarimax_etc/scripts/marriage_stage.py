@@ -1,6 +1,6 @@
 """E11: two-stage forecast, marriages forecast first and fed to the births model, against same-month-last-year filling; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/marriage_stage.py   (BIRTHS_WORKERS, default 6)
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/marriage_stage.py   (BIRTHS_WORKERS, default 6)
 """
 import os
 import sys

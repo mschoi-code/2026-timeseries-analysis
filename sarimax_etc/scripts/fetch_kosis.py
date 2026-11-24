@@ -1,7 +1,7 @@
 """Download KOSIS tables through the OpenAPI, every item and class, chunked under the 40,000-cell limit per call.
 
 Reads the key from ~/.config/api_keys/kosis and never prints it or a request URL.
-Writes data/raw/kosis_api_<today>/<name>.csv (rows as KOSIS returns them). Run from births/: python -I scripts/fetch_kosis.py
+Writes data/raw/kosis_api_<today>/<name>.csv (rows as KOSIS returns them). Run from sarimax_etc/: python -I scripts/fetch_kosis.py
 """
 import json
 import time

@@ -1,6 +1,6 @@
 """E14: VAR of mortgage rate, real house prices, employment 25~29, marriages and births (12-month differences); report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/econ_var.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/econ_var.py
 """
 import sys
 from pathlib import Path

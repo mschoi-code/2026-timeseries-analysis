@@ -1,6 +1,6 @@
 """E8: did the 2023~2025 marriage surplus come from the cohorts that lost marriages in 2020~2022? Report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/marriage_cohorts.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/marriage_cohorts.py
 """
 import re
 import sys

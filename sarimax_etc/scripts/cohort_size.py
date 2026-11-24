@@ -1,6 +1,6 @@
 """E18: does a cohort's own size (Easterlin) or its parents' marriage rate (transmission) move its age-specific marriage rate? Report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/cohort_size.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/cohort_size.py
 """
 import sys
 import warnings

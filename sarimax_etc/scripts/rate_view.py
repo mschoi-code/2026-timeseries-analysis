@@ -1,6 +1,6 @@
 """E19: marriages seen as rates instead of counts: comparison table, E7 catch-up with age-specific rates, E15 steps on a monthly rate.
 
-Report only; rules are in notes/decisions.md. Run from births/: python -I scripts/rate_view.py   (BIRTHS_WORKERS, default 6)
+Report only; rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/rate_view.py   (BIRTHS_WORKERS, default 6)
 """
 import os
 import sys

@@ -1,6 +1,6 @@
 """E13: 2031 scenarios and 5-year accuracy for the newlywed-only models of the first analysis; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/scenarios_newlywed.py   (BIRTHS_WORKERS, default 6)
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/scenarios_newlywed.py   (BIRTHS_WORKERS, default 6)
 """
 import os
 import sys

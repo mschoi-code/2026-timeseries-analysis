@@ -8,7 +8,7 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))  # appended last: scripts run with python -I
-from common import RAW, REBOUND_END, REP, TRAIN_END, fit, load_features, load_monthly, mape, newlywed, weekdays  # noqa: E402
+from common import DATA, REBOUND_END, REP, TRAIN_END, fit, load_features, load_monthly, mape, newlywed, weekdays  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 import statsmodels.api as sm  # noqa: E402
@@ -45,7 +45,7 @@ y = y[:REBOUND_END]
 level = np.exp(y_all)
 ORIGINS = pd.date_range(TRAIN_END, "2025-07-01", freq="MS")
 
-p_ = pd.read_csv(RAW / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
+p_ = pd.read_csv(DATA / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
 years = p_.iloc[2, 1:].astype(int).values
 P_ = p_.iloc[3:].set_index(0)
 

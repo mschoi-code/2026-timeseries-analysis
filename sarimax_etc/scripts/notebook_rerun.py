@@ -1,6 +1,6 @@
 """E1: rerun the team EDA notebook unchanged on CSVs rebuilt from the Drive files, then refit its SARIMAX with common.fit.
 
-Report only; rules are in notes/decisions.md. Run from births/: python -I scripts/notebook_rerun.py <scratch_dir>
+Report only; rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/notebook_rerun.py <scratch_dir>
 The notebook and its two input CSVs are copied into <scratch_dir>; nothing in the repo is changed but reports/13_*.
 """
 import ast
@@ -14,14 +14,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT / "src"))  # appended last: scripts run with python -I
-from common import EDA_71, PROPOSAL, RAW, REP, fit, load_monthly  # noqa: E402
+from common import EDA_71, PROPOSAL, DATA, RAW, REP, fit, load_monthly  # noqa: E402
 import matplotlib.pyplot as plt  # noqa: E402  (common already set the Agg backend)
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from statsmodels.stats.stattools import durbin_watson  # noqa: E402
 
 NB = RAW / "team_drive_20261109" / "birth_forecast_eda.ipynb"
-# numbers printed in the 2026-10-09 EDA PDF (text in notes/births_eda.md)
+# numbers printed in the 2026-10-09 EDA PDF (EDA part)
 PDF = {
     ("rebound 2024-01~2026-07", "SARIMA", "MAPE"): 18.0,
     ("rebound 2024-01~2026-07", "SARIMAX + 혼인 건수", "MAPE"): 17.4,
@@ -55,7 +55,7 @@ def build_inputs(tmp):
     m = load_monthly()
     pd.DataFrame({"연도": m.index.year, "월": m.index.month, "출생아수": m.births.astype(int).values,
                   "혼인건수": m.marr.astype(int).values}).to_csv(tmp / "출생아수_혼인건수_월별.csv", index=False, encoding="utf-8-sig")
-    p = pd.read_csv(RAW / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
+    p = pd.read_csv(DATA / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
     years = p.iloc[2, 1:].astype(int).values
     body = p.iloc[3:].set_index(0)
     assert body.index.is_unique

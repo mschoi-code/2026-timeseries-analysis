@@ -1,7 +1,7 @@
 """E17: HistGradientBoosting benchmark on E10's origins and designs, as a comparison row only; report only.
 
 Direct multi-horizon: one pooled model predicts log births_t - log births_b (b = latest known same month) with h as a feature.
-Rules are in notes/decisions.md. Run from births/: python -I scripts/ml_benchmark.py   (BIRTHS_WORKERS, default 6)
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/ml_benchmark.py   (BIRTHS_WORKERS, default 6)
 """
 import os
 

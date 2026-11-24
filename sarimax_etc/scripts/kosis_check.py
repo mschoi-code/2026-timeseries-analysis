@@ -1,6 +1,6 @@
 """Check the 2026-11-07 KOSIS downloads and decompose births into population and rate effects; report only.
 
-Run from births/: python -I scripts/kosis_check.py
+Run from sarimax_etc/: python -I scripts/kosis_check.py
 """
 import re
 import sys
@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT / "src"))  # appended last: scripts run with python -I
 sys.path.append(str(ROOT / "scripts"))
-from common import REP, RAW, load_monthly  # noqa: E402
+from common import REP, DATA, RAW, load_monthly  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from realtime import scenarios  # noqa: E402
@@ -84,7 +84,7 @@ def national_rates():
 
 def women():
     """Women by 5-year band from the team file; estimates through 2022, medium projection after."""
-    p = pd.read_csv(RAW / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
+    p = pd.read_csv(DATA / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
     years = p.iloc[2, 1:].astype(int).values
     body = p.iloc[3:].set_index(0)
     return pd.DataFrame({a: pd.to_numeric(body.loc[a], errors="coerce").values for a in MARR_AGES}, index=years)

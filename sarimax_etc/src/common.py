@@ -15,6 +15,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 
 ROOT = Path(__file__).resolve().parents[1]
 RAW = ROOT / "data" / "raw"
+DATA = ROOT.parent / "data"  # team-shared KOSIS CSVs (births/marriages, population projection)
 FIG = ROOT / "figures"
 REP = ROOT / "reports"
 FIG.mkdir(exist_ok=True)
@@ -43,7 +44,7 @@ plt.rcParams.update({
 
 def load_monthly():
     """Monthly births and marriages from the team's KOSIS file, validated."""
-    m = pd.read_csv(RAW / "월간_인구동향_출생_혼인.csv", skiprows=2, header=None,
+    m = pd.read_csv(DATA / "월간_인구동향_출생_혼인.csv", skiprows=2, header=None,
                     names=["t", "births", "marr"], dtype={"t": str})
     m.index = pd.to_datetime(m.t.str.slice(0, 7), format="%Y.%m")
     m = m.drop(columns="t").astype(float)
@@ -61,7 +62,7 @@ def newlywed(marr):
 
 def women_30_34():
     """Women aged 30~34 by month: annual values sit on July 1 (mid-year population), linear between."""
-    p = pd.read_csv(RAW / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
+    p = pd.read_csv(DATA / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
     years = p.iloc[2, 1:].astype(int).values
     w = pd.Series(p.iloc[3:].set_index(0).loc["30 - 34세"].astype(float).values,
                   index=pd.to_datetime([f"{y}-07-01" for y in years]))

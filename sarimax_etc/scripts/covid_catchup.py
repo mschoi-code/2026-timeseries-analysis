@@ -1,6 +1,6 @@
 """E7: COVID marriage deficit and its cumulative catch-up against pre-2020 counterfactuals; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/covid_catchup.py
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/covid_catchup.py
 """
 import sys
 from pathlib import Path

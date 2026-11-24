@@ -1,7 +1,7 @@
 """Download monthly Bank of Korea ECOS series for the economic block (rates, loans, house prices, CPI, jobs).
 
 Reads the key from ~/.config/api_keys/ecos and never prints it or a request URL.
-Writes data/raw/ecos_<today>/ecos_monthly.csv (long format). Run from births/: python -I scripts/fetch_ecos.py
+Writes data/raw/ecos_<today>/ecos_monthly.csv (long format). Run from sarimax_etc/: python -I scripts/fetch_ecos.py
 """
 import json
 import time

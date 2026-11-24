@@ -9,7 +9,7 @@ from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))  # appended last: scripts run with python -I
-from common import RAW, REBOUND_END, REP, fit, load_monthly, weekdays, women_30_34  # noqa: E402
+from common import DATA, REBOUND_END, REP, fit, load_monthly, weekdays, women_30_34  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from scipy import stats  # noqa: E402
@@ -207,7 +207,7 @@ def block_lags():
 
 def scenarios(lo, hi, women=True, calendar=True):
     """Marriage rate (hold, -5%/year) x population (projected, frozen at 2026-07), refit through 2026-07."""
-    p = pd.read_csv(RAW / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
+    p = pd.read_csv(DATA / "성_및_연령별_추계인구_1세별_5세별_전국.csv", header=None, dtype=str)
     years = p.iloc[2, 1:].astype(int).values
     P = p.iloc[3:].set_index(0)
     grp = lambda g: pd.Series(P.loc[g].astype(float).values, index=pd.to_datetime([f"{yr}-07-01" for yr in years]))

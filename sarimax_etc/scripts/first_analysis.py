@@ -1,7 +1,7 @@
 """E10: first analysis agreed at the team meeting: newlywed couples as the only X, the deck's split; report only.
 
 Two designs: the deck as written (no publication lag) and real time (2 months). Rules are in notes/decisions.md.
-Run from births/: python -I scripts/first_analysis.py   (BIRTHS_WORKERS sets the process count, default 6)
+Run from sarimax_etc/: python -I scripts/first_analysis.py   (BIRTHS_WORKERS sets the process count, default 6)
 """
 import os
 import sys

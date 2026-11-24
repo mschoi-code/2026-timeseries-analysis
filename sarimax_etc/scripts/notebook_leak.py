@@ -1,7 +1,7 @@
 """E2: how much of the notebook's 7.1% rebound MAPE comes from future marriages and the publication lag. Report only.
 
 Same model throughout: (1,0,0)(0,1,1)12 + c, log newlywed 12~35 + log women 30~34, no weekdays.
-Rules are in notes/decisions.md. Run from births/ after notebook_rerun.py: python -I scripts/notebook_leak.py
+Rules are in notes/decisions.md. Run from sarimax_etc/ after notebook_rerun.py: python -I scripts/notebook_leak.py
 """
 import sys
 import warnings

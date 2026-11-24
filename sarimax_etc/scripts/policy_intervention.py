@@ -1,6 +1,6 @@
 """E15: step-dummy intervention analysis of policy dates on monthly marriages and births, with a placebo-date null; report only.
 
-Rules are in notes/decisions.md. Run from births/: python -I scripts/policy_intervention.py   (BIRTHS_WORKERS, default 6)
+Rules are in notes/decisions.md. Run from sarimax_etc/: python -I scripts/policy_intervention.py   (BIRTHS_WORKERS, default 6)
 """
 import os
 import sys
