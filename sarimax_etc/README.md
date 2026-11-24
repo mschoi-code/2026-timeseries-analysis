@@ -1,54 +1,59 @@
-# 출생아 반등 예측 작업 폴더 (SOI4013 Team 21)
+# SARIMA·SARIMAX 파트 (출생아 반등 예측)
 
-2026-11-06 기준 SARIMA·SARIMAX 평가, RQ3 전망, 추가 실험 A~K, 공표 지연을 넣은 실시간 평가까지 끝났어요. `src/01~05`의 수치는 공표 지연 전 설계이고, 실시간 수치는 `reports/09_*`예요. 추정 함수를 고쳐서 주 모델이 바뀌었고, `slides/`와 `src/06_slides.py`는 수정 전 수치예요. 선택 규칙과 결과는 `notes/decisions.md`에 있어요. 상위 폴더의 나머지(`src/`, `data/`, `reports/`, `figures/`, `proposal_china_tourism_spillover.md`)는 10/10에 접은 중국 관광 작업이에요.
+SARIMA·SARIMAX 평가, RQ3 전망(2031), 추가 실험, 공표 지연을 넣은 실시간 평가를 담은 폴더예요.
+모델 선택 규칙, 실험 선언과 결과는 `notes/decisions.md`에 날짜순으로 있어요.
+`src/01~05`의 수치는 공표 지연 전 설계이고, 실시간 수치는 `reports/09_*`예요. 추정 함수를 고친 뒤 주 모델이 바뀌어서
+`src/06_slides.py`는 수정 전 수치를 그려요.
 
 ## 구조
 
-- `data/raw/`: 팀 Drive에서 받은 원본 CSV 2개. 수정 금지.
+- `../data/`(레포 루트): 팀 공용 KOSIS 원본 CSV 2개. `src/common.py`의 `DATA`가 이 폴더를 읽어요. 수정 금지.
   - `월간_인구동향_출생_혼인.csv` (md5 `5a24e7af…`), 1981.01~2026.07
   - `성_및_연령별_추계인구_1세별_5세별_전국.csv` (md5 `49116752…`), 여성, 중위 추계, 1960~2035
-  - `kosis_20261107/`: 11/7에 받은 KOSIS 파일 10개. 연간 출생·혼인, 연령별 출산율 1993~2025, 순위별 출생 1981~2025, 시도별 월별 혼인 1997~2025, 연령별 혼인율, 부부 연령별 혼인. 월별 자료는 2025-12까지예요. 결과는 `reports/10_*`예요.
-- `src/`: SARIMA·SARIMAX 분석 코드. 번호 순서대로 실행해요.
-- `reports/`, `figures/`: `src/`의 출력이에요. 그림은 영어예요.
-- `slides/`: 중간 발표의 SARIMA·SARIMAX 파트 초안이에요. 팀 양식 기반이고 차트는 PowerPoint에서 수정할 수 있어요.
-- `scripts/`: 11/5 점검용 탐색 스크립트. 최종 분석 코드가 아니에요.
-- `notes/`: 결정 기록(`decisions.md`), 최종 제안서(`proposal.md`)와 문성민 님 10/9 EDA(`births_eda.md`)의 PDF 추출 텍스트. 차트는 빠져 있어요.
+- `data/raw/kosis_20261107/`: 11/7에 받은 KOSIS 파일 10개. 연간 출생·혼인, 연령별 출산율 1993~2025, 순위별 출생 1981~2025,
+  시도별 월별 혼인 1997~2025, 연령별 혼인율, 부부 연령별 혼인. 월별 자료는 2025-12까지예요. `kosis_check.py`와 그것을 쓰는 스크립트가 읽어요.
+- `data/raw/`의 다른 폴더(`kosis_api_*`, `ecos_*`, `japan_estat_*`, `team_drive_*`)는 레포에 없어요. 이 폴더를 읽는 스크립트는
+  레포만으로는 돌지 않아요: `econ_var.py`, `policy_intervention.py`, `decompose_rebound.py`(KOSIS·ECOS API 자료),
+  `japan_compare.py`(일본 e-Stat), `notebook_rerun.py`·`notebook_leak.py`(팀 Drive의 EDA 노트북).
+  API 자료는 `scripts/fetch_kosis.py`, `scripts/fetch_ecos.py`로 다시 받을 수 있고, 각 서비스의 API 키가 필요해요.
+- `src/`: SARIMA·SARIMAX 본 분석 코드. 번호 순서대로 실행해요.
+- `scripts/`: 점검·추가 실험 스크립트. 각 파일 첫 줄에 무엇을 하는지와 `decisions.md`의 실험 번호가 있어요.
+- `reports/`, `figures/`: `src/`와 `scripts/`를 실행하면 생기는 출력이에요. `reports/`는 레포에 올리지 않아요. 그림은 영어예요.
 
 ## 실행
 
-`births/`에서 실행해요. 받은 파일을 다루므로 `-I`를 붙여요.
+`sarimax_etc/`에서 실행해요. 받은 파일을 다루므로 `-I`를 붙여요. 필요한 패키지는 pandas, numpy, statsmodels, matplotlib,
+scipy이고, `ml_benchmark.py`는 scikit-learn이 더 필요해요.
 
 ```bash
-PY=~/miniconda3/envs/school/bin/python
-$PY -I src/01_box_jenkins.py     # data through 2015: differencing tests, AIC grid, candidates
-$PY -I src/02_normal_period.py   # 2016~2023: 8 origins, locks the main model
-$PY -I src/03_rebound.py         # 2024-01~2026-07: frozen coefficients, 20 origins, decides nothing
-$PY -I src/04_figures.py         # report figures
-$PY -I src/05_outlook.py         # RQ3 outlook to 2031 by marriage scenario, long-horizon backtest
-$PY -I src/06_slides.py <team_template.pptx> slides/Team21_Intermediate_SARIMA_SARIMAX.pptx  # needs python-pptx, not in the school env
+python -I src/01_box_jenkins.py     # data through 2015: differencing tests, AIC grid, candidates
+python -I src/02_normal_period.py   # 2016~2023: 8 origins, locks the main model
+python -I src/03_rebound.py         # 2024-01~2026-07: frozen coefficients, 20 origins, decides nothing
+python -I src/04_figures.py         # report figures
+python -I src/05_outlook.py         # RQ3 outlook to 2031 by marriage scenario, long-horizon backtest
 
 # exploratory checks from 2026-11-05
-$PY -I scripts/check_births.py data/raw        # data quality, proposal numbers, Granger, SARIMAX
-$PY -I scripts/spec_search.py data/raw         # 112-spec grid
-$PY -I scripts/final_check.py data/raw scripts # attribution, placebo windows, lags, weekdays
-$PY -I scripts/last.py data/raw                # population sums, seasonal amplitude
-$PY -I scripts/decompose.py                    # how much of the rebound marriages explain (2026-11-06)
-$PY -I scripts/quarterly_check.py              # monthly s=3 and quarterly s=4 against monthly s=12, report only
-$PY -I scripts/experiments.py acefghijkbd       # experiments A~K, report only; run after src/01~03
-$PY -I scripts/realtime.py                     # publication lag, equal blocks, MASE, DM, lag shape, scenarios; report only
-$PY -I scripts/kosis_check.py                  # KOSIS cross-checks, population vs rate decomposition, birth order, structural effect; report only
-$PY -I scripts/population_variable.py          # marriage rate and age-weighted population against the current variables; report only
-$PY -I scripts/province_panel.py               # province panel: marriage rate leading fertility net of national shocks; report only
-$PY -I scripts/notebook_rerun.py <scratch_dir>  # E1: team EDA notebook rerun unchanged in <scratch_dir>, refit with common.fit; report only
-$PY -I scripts/notebook_leak.py                # E2: future marriages and publication lag in the notebook's 7.1%; after E1
-$PY -I scripts/team_models_realtime.py         # E3: notebook regression and Holt-Winters in the real-time design; after E2
-$PY -I scripts/long_backtest.py                # E4: 1~5-year annual errors with publication lag, current vs model C
-$PY -I scripts/province_standardized.py        # E5: province panel with an age-standardized marriage rate
-$PY -I scripts/team_summary.py                 # E6: team summary tables from 09/10/14/16 plus a rerun check; text in reports/18_team_summary.md
-$PY -I scripts/extract.py notes                # re-extract PDF text (needs pypdf)
+python -I scripts/check_births.py ../data          # data quality, proposal numbers, Granger, SARIMAX
+python -I scripts/spec_search.py ../data           # 112-spec grid
+python -I scripts/final_check.py ../data scripts   # attribution, placebo windows, lags, weekdays
+python -I scripts/last.py ../data                  # population sums, seasonal amplitude
+python -I scripts/decompose.py                     # how much of the rebound marriages explain (2026-11-06)
+python -I scripts/quarterly_check.py               # monthly s=3 and quarterly s=4 against monthly s=12, report only
+python -I scripts/experiments.py acefghijkbd       # experiments A~K, report only; run after src/01~03
+python -I scripts/realtime.py                      # publication lag, equal blocks, MASE, DM, lag shape, scenarios; report only
+python -I scripts/kosis_check.py                   # KOSIS cross-checks, population vs rate decomposition, birth order, structural effect
+python -I scripts/population_variable.py           # marriage rate and age-weighted population against the current variables
+python -I scripts/province_panel.py                # province panel: marriage rate leading fertility net of national shocks
+python -I scripts/long_backtest.py                 # E4: 1~5-year annual errors with publication lag
+python -I scripts/province_standardized.py         # E5: province panel with an age-standardized marriage rate
+python -I scripts/team_summary.py                  # E6: summary tables from 09/10/14/16 plus a rerun check
 ```
 
-제안서가 정하지 않아서 제가 고른 설정이 있어요. 30~34세 여성은 연간 값을 7월에 두고 선형 보간했어요. 이 선택이 결과에 영향을 줘요(d=1에서 선형 16.4%, 연간 계단 13.9%).
+E7 이후 스크립트(`covid_catchup.py`, `marriage_cohorts.py`, `first_analysis.py` 등)의 실행 순서와 출력 번호는
+`decisions.md`의 각 실험 항목에 있어요.
+
+제안서가 정하지 않아서 SARIMAX 파트가 고른 설정이 있어요. 30~34세 여성은 연간 값을 7월에 두고 선형 보간했어요.
+이 선택이 결과에 영향을 줘요(d=1에서 선형 16.4%, 연간 계단 13.9%).
 
 ## 2026-11-05 점검 결과
 
@@ -59,7 +64,7 @@ $PY -I scripts/extract.py notes                # re-extract PDF text (needs pypd
 - 출생·혼인: 547개월, 결측·중복·누락 월 없음. 잠정치 표시는 2026-01~07뿐이에요.
 - 인구: 30~34세 결측 없음. `80세이상` 행은 세부 구간과 겹쳐서 빼고 합산해야 `계`와 일치해요.
 - 이상치(Δ1Δ12 log, 2005년 이후 robust |z|>3): 출생 7/259개월(2008-08, 2011-09, 2012-02, 2020-10, 2021-12, 2022-01 등), 혼인 1/259개월(2018-10). 원인은 조사하지 않았어요.
-- 2026-08 자료가 10/28에 나왔어요. 보도 수치는 출생 23,703명, 혼인 19,218건이고 팀 파일에는 없어요. KOSIS 원자료로는 아직 확인하지 않았어요.
+- 2026-08 자료가 10/28에 나왔어요. 보도 수치는 출생 23,703명, 혼인 19,218건이고 팀 파일에는 없어요. 11/10 KOSIS API 자료로 같은 값을 확인했어요(`decisions.md`).
 
 ### 제안서 수치
 
@@ -87,7 +92,7 @@ $PY -I scripts/extract.py notes                # re-extract PDF text (needs pypd
 | 같은 차수 + 여성 | 11.7 | 6.91 | +0.35 (se .81) |
 | 같은 차수 + 신혼부부 + 여성 | 7.1 | 5.10 | +0.97 (se .13), +0.74 (se .33) |
 
-- 문성민 님 실제 설정은 미확인이에요. `log, step (2,0,0)(0,1,1)+c`도 7.08이 나와요.
+- EDA 노트북의 실제 설정은 미확인이에요. `log, step (2,0,0)(0,1,1)+c`도 7.08이 나와요.
 - 112개 격자의 반등기 MAPE: d=1, D=1 최소 13.7, 중앙값 19.9 / d=0, D=1 최소 5.0, 중앙값 6.1 / d=0, D=0 최소 4.9, 중앙값 7.0 / d=1, D=0 최소 6.4, 중앙값 15.1.
 - 10.9%p 개선 중 4.3%p는 d=0 효과, 6.6%p는 변수 효과예요.
 - 매달 재학습하는 12개월 앞 예측(20회): seasonal naive 8.8(EDA 8.7), SARIMA 12.7(EDA 11.1), d=1 SARIMAX 10.2(EDA 6.3).
